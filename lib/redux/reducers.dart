@@ -2,27 +2,40 @@ import 'package:redux_items/models/item.dart';
 import 'package:redux_items/models/app_state.dart';
 import 'package:redux_items/redux/actions.dart';
 
+import 'package:redux/redux.dart';
+
 AppState appStateReducer(AppState state, action) {
   return AppState(items: itemReducer(state.items, action));
 }
 
-List<Item> itemReducer(List<Item> state, action) {
-  if (action is AddItemAction) {
-    return []
+Reducer<List<Item>> itemReducer = combineReducers<List<Item>>([
+  TypedReducer<List<Item>, AddItemAction>(addItemReducer),
+  TypedReducer<List<Item>, RemoveItemAction>(removeItemReducer),
+  TypedReducer<List<Item>, RemoveItemsAction>(removeItemsReducer),
+  TypedReducer<List<Item>, LoadedItemsAction>(loadedItemsReducer),
+  TypedReducer<List<Item>, ItemCompletedAction>(itemCompletedReducer),
+]);
+
+List<Item> addItemReducer(List<Item> state, action) {
+  return []
       ..addAll(state)
       ..add(Item(id: action.id, body: action.item));
-  }
+}
 
-  if (action is RemoveItemAction) {
-    return List.unmodifiable(List.from(state)..remove(action.item));
-  }
+List<Item> removeItemReducer(List<Item> state, action) {
+  return List.unmodifiable(List.from(state)..remove(action.item));
+}
 
-  if (action is RemoveItemsAction) {
-    return List.unmodifiable([]);
-  }
+List<Item> removeItemsReducer(List<Item> state, action) {
+  return List.unmodifiable([]);
+}
 
-  if (action is LoadedItemsAction) {
-    return action.items;
-  }
-  return state;
+List<Item> loadedItemsReducer(List<Item> state, action) {
+  return action.items;
+}
+
+List<Item> itemCompletedReducer(List<Item> state, action) {
+  return state.map((Item item) => item.id == action.item.id
+          ? item.copyWith(completed: !item.completed)
+          : item).toList();
 }

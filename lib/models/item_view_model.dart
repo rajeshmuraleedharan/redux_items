@@ -10,9 +10,14 @@ class ItemViewModel {
   final Function(String) onAddItem;
   final Function(Item) onRemoveItem;
   final Function() onRemoveItems;
+  final Function(Item) onItemCompletedAction;
 
   ItemViewModel(
-      {this.items, this.onAddItem, this.onRemoveItem, this.onRemoveItems});
+      {this.items,
+      this.onAddItem,
+      this.onRemoveItem,
+      this.onRemoveItems,
+      this.onItemCompletedAction});
 
   factory ItemViewModel.create(Store<AppState> store) {
     _onAddItem(String body) => store.dispatch(AddItemAction(body));
@@ -21,10 +26,14 @@ class ItemViewModel {
 
     _onRemoveItems() => store.dispatch(RemoveItemsAction());
 
+    _onItemCompletedAction(Item item) =>
+        store.dispatch(ItemCompletedAction(item));
+
     return ItemViewModel(
         items: store.state.items,
         onAddItem: _onAddItem,
         onRemoveItem: _onRemoveItem,
-        onRemoveItems: _onRemoveItems);
+        onRemoveItems: _onRemoveItems,
+        onItemCompletedAction: _onItemCompletedAction);
   }
 }

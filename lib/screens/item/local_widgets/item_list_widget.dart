@@ -21,6 +21,10 @@ class _ItemListState extends State<ItemListWidget> {
           icon: Icon(Icons.delete),
           onPressed: () => widget.model.onRemoveItem(item),
         ),
+        trailing: Checkbox(
+          value: item.completed,
+          onChanged: (b) => widget.model.onItemCompletedAction(item),
+        ),
       )).toList(),
     );
   }
