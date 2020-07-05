@@ -9,4 +9,13 @@ class Item {
   Item copyWith({int id, String body}) {
     return Item(id: id ?? this.id, body: body ?? this.body);
   }
+
+  Item.fromJson(Map json)
+      : id = json["id"],
+        body = json["body"];
+
+  Map toJson() => {
+    "id": id,
+    "body": body
+  };
 }
