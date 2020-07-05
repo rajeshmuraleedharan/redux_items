@@ -10,7 +10,8 @@ void appStateMiddleware(Store<AppState> store, action, NextDispatcher next) {
 
   if (action is AddItemAction ||
       action is RemoveItemsAction ||
-      action is RemoveItemAction) {
+      action is RemoveItemAction ||
+      action is ItemCompletedAction) {
         ManagePrefsUtil.saveToPrefs(store.state);
       }
 

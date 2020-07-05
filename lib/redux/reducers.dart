@@ -24,5 +24,12 @@ List<Item> itemReducer(List<Item> state, action) {
   if (action is LoadedItemsAction) {
     return action.items;
   }
+
+  if (action is ItemCompletedAction) {
+    return state.map((Item item) => item.id == action.item.id
+          ? item.copyWith(completed: !item.completed)
+          : item).toList();
+  }
+
   return state;
 }

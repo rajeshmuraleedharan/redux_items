@@ -14,4 +14,7 @@ class AppState {
   Map toJson() => {
     "items": items
   };
+
+  @override
+  String toString() => toJson().toString();
 }
