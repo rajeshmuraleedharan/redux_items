@@ -8,6 +8,10 @@ import 'package:redux_items/models/item_view_model.dart';
 import 'package:redux_items/screens/item/manage_items.dart';
 
 class MyHomePage extends StatelessWidget {
+  final Store<AppState> store;
+
+  MyHomePage(this.store);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +20,8 @@ class MyHomePage extends StatelessWidget {
       ),
       body: StoreConnector<AppState, ItemViewModel>(
         converter: (Store<AppState> store) => ItemViewModel.create(store),
-        builder: (BuildContext context, ItemViewModel viewModel) => 
-          ManageItemsWidget(viewModel),
+        builder: (BuildContext context, ItemViewModel viewModel) =>
+            ManageItemsWidget(viewModel),
       ),
     );
   }

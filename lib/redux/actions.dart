@@ -4,7 +4,7 @@ class AddItemAction {
   static int _id = 0;
   final String item;
 
-  AddItemAction(this.item){
+  AddItemAction(this.item) {
     _id++;
   }
 
@@ -18,3 +18,11 @@ class RemoveItemAction {
 }
 
 class RemoveItemsAction {}
+
+class GetItemsAction {}
+
+class LoadedItemsAction {
+  final List<Item> items;
+
+  LoadedItemsAction(this.items);
+}
